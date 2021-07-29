@@ -1,4 +1,4 @@
-import { createEffect, reactive } from './index'
+import { createEffect, reactive } from '../index'
 
 const state = reactive({
   count: 0,
