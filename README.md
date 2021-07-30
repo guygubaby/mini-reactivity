@@ -16,14 +16,14 @@ const state = reactive({
 
 const patch = init([])
 
-let vdom = h('span', null, state.count)
+let vnode = h('span', null, state.count)
 
-patch(root, vdom)
+patch(root, vnode)
 
 createEffect(() => {
-  const nextVdom = h('span', null, state.count)
-  patch(vdom, nextVdom)
-  vdom = nextVdom
+  const nextVnode = h('span', null, state.count)
+  patch(vnode, nextVnode)
+  vnode = nextVnode
 })
 
 buttonEl.addEventListener('click', () => {
