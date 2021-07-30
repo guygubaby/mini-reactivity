@@ -1,9 +1,3 @@
-# mini vue reactivity
-
-Usage
-
-```typescript
-
 import { h, init } from 'snabbdom'
 import { reactive, createEffect } from '../index'
 
@@ -22,6 +16,7 @@ patch(root, vdom)
 
 createEffect(() => {
   const nextVdom = h('span', null, state.count)
+  console.log('nextVdom: ', nextVdom)
   patch(vdom, nextVdom)
   vdom = nextVdom
 })
@@ -29,5 +24,3 @@ createEffect(() => {
 buttonEl.addEventListener('click', () => {
   state.count++
 })
-
-```
