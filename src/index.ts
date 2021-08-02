@@ -1,16 +1,16 @@
 import { queueJob } from './scheduler'
 
-type ReactivityTarget = Record<string| symbol, any>
+type ReactivityTarget = Record<PropertyKey, any>
 
 type Effect = () => void
 type Effects = Set<Effect>
-type KeyToEffectsMap = Map<string| symbol, Effects>
+type KeyToEffectsMap = Map<PropertyKey, Effects>
 type EffectMap = WeakMap<any, KeyToEffectsMap>
 
 const runningEffects: Effect[] = []
 const effectMap: EffectMap = new WeakMap()
 
-const track = <T extends ReactivityTarget>(target: T, property: string | symbol) => {
+const track = <T extends ReactivityTarget>(target: T, property: PropertyKey) => {
   const effects = runningEffects.slice()
   const oldEffects = effectMap.get(target)?.get(property) || new Set<Effect>()
 
@@ -21,7 +21,7 @@ const track = <T extends ReactivityTarget>(target: T, property: string | symbol)
   effectMap.set(target, depMap)
 }
 
-const trigger = <T extends ReactivityTarget>(target: T, property: string | symbol) => {
+const trigger = <T extends ReactivityTarget>(target: T, property: PropertyKey) => {
   const effects = effectMap.get(target)?.get(property)
   if (effects) {
     effects.forEach((effect) => {
